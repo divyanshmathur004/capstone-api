@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
 const redisClient = require("./redisClient");
+const start = Date.now();
+
 
 require("dotenv").config();
 
@@ -108,7 +110,7 @@ app.get("/api/v1/districts/:state_code", async (req, res) => {
   count: result.rows.length,
   data: result.rows,
   meta: {
-    responseTime: Date.now()
+    responseTime: Date.now() -start
   }
 });
   } catch (err) {
@@ -162,7 +164,7 @@ app.get("/api/v1/subdistricts/:district_code", async (req, res) => {
   count: result.rows.length,
   data: result.rows,
   meta: {
-    responseTime: Date.now()
+    responseTime: Date.now() -start
   }
 });
   } catch (err) {
