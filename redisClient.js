@@ -5,11 +5,18 @@ const client = createClient({
   url: process.env.REDIS_URL,
 });
 
-client.on("error", (err) => console.log("Redis Error", err));
+// Explicit error handler to prevent crashing
+client.on("error", (err) => {
+  console.error("❌ Redis Error:", err.message);
+});
 
 (async () => {
-  await client.connect();
-  console.log("✅ Redis Connected");
+  try {
+    await client.connect();
+    console.log("✅ Redis Connected");
+  } catch (err) {
+    console.error("❌ Redis Connection Failed. Service will dynamically fallback to DB/un-cached mode.");
+  }
 })();
 
 module.exports = client;
