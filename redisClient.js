@@ -2,32 +2,59 @@ const { createClient } = require("redis");
 require("dotenv").config();
 
 const redisUrl = process.env.REDIS_URL;
-let client;
+let redisClient;
+let isReady = false;
 
 if (!redisUrl) {
-  client = {
-    async get() {
-      return null;
-    },
-    async setEx() {
-      return null;
-    },
-  };
   console.log("⚠️ REDIS_URL not set, cache disabled");
 } else {
-  client = createClient({
+  redisClient = createClient({
     url: redisUrl,
   });
 
-  client.on("error", (err) => console.log("Redis Error", err));
+  redisClient.on("ready", () => {
+    isReady = true;
+    console.log("✅ Redis Connected");
+  });
+  redisClient.on("end", () => {
+    isReady = false;
+  });
+  redisClient.on("error", (err) => {
+    isReady = false;
+    console.log("Redis Error", err.message);
+  });
 
-  client.connect()
-    .then(() => {
-      console.log("✅ Redis Connected");
-    })
+  redisClient.connect()
     .catch((err) => {
       console.log("⚠️ Redis connect failed, cache disabled", err.message);
+      isReady = false;
     });
 }
 
-module.exports = client;
+module.exports = {
+  async get(key) {
+    if (!redisClient || !isReady) {
+      return null;
+    }
+
+    try {
+      return await redisClient.get(key);
+    } catch (err) {
+      console.log("⚠️ Redis get failed, cache bypassed", err.message);
+      return null;
+    }
+  },
+
+  async setEx(key, ttl, value) {
+    if (!redisClient || !isReady) {
+      return null;
+    }
+
+    try {
+      return await redisClient.setEx(key, ttl, value);
+    } catch (err) {
+      console.log("⚠️ Redis set failed, cache bypassed", err.message);
+      return null;
+    }
+  },
+};
