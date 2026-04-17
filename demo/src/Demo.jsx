@@ -133,7 +133,7 @@ export default function Demo() {
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Location Contact Form Demo</h1>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
             Connected to
-            <span className="mx-1 rounded-md bg-cyan-50 px-2 py-0.5 font-semibold text-cyan-800">{API_URL}/api/v1/autocomplete?q=</span>
+            <span className="mx-1 rounded-md bg-cyan-50 px-2 py-0.5 font-semibold text-cyan-800">{API_URL}/autocomplete?q=</span>
             with auto-fill for address hierarchy.
           </p>
         </div>

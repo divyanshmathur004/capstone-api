@@ -42,7 +42,7 @@ const statusMap = {
 export const adminFilterOptions = {
   statuses: ['pending', 'active', 'suspended'],
   plans: ['free', 'premium', 'pro', 'unlimited'],
-  endpoints: ['/api/v1/autocomplete', '/api/v1/villages', '/api/v1/districts', '/api/v1/states'],
+  endpoints: ['/autocomplete', '/villages', '/districts', '/states'],
 }
 
 function unwrapResponse(response) {

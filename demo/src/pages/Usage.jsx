@@ -35,7 +35,7 @@ export default function Usage() {
     )
   }
 
-  const endpoints = ['all', '/api/v1/autocomplete', '/api/v1/villages', '/api/v1/districts', '/api/v1/states', '/api/v1/subdistricts']
+  const endpoints = ['all', '/autocomplete', '/villages', '/districts', '/states', '/subdistricts']
 
   const filteredLogs = useMemo(() => {
     return allLogs.filter((log) => {
