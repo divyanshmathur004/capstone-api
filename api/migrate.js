@@ -1,5 +1,7 @@
-require("dotenv").config();
-const pool = require("./db");
+import dotenv from "dotenv";
+import pool from "./db.js";
+
+dotenv.config();
 
 async function migrate() {
   console.log("Running schema migration...");

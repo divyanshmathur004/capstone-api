@@ -1,11 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const { randomBytes, randomUUID } = require("crypto");
-const pool = require("./db");
-const redisClient = require("./redisClient");
+import express from "express";
+import cors from "cors";
+import bcrypt from "bcrypt";
+import { randomBytes, randomUUID } from "crypto";
+import dotenv from "dotenv";
+import pool from "./db.js";
+import redisClient from "./redisClient.js";
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 
@@ -1590,5 +1591,4 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-module.exports = app;
-module.exports.default = app;
+export default app;
