@@ -1,6 +1,7 @@
 {
   "name": "capstone-project",
   "private": true,
+  "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
