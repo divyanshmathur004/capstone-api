@@ -9,7 +9,6 @@ require("dotenv").config();
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
 const REGISTER_COOLDOWN_MS = 60000;
 
 const PLAN_LIMITS = {
@@ -1591,32 +1590,5 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-const verifyStartupSafety = async () => {
-  const requiredEnvVars = ["DATABASE_URL", "ADMIN_SECRET", "REDIS_URL"];
-  const missingEnvVars = requiredEnvVars.filter((name) => !process.env[name]);
-  if (missingEnvVars.length > 0) {
-    throw new Error(`Missing required environment variables: ${missingEnvVars.join(", ")}`);
-  }
-
-  await pool.query("SELECT 1");
-
-  if (!redisClient.isOpen) {
-    throw new Error("Redis connection is required but not available");
-  }
-
-  await redisClient.ping();
-};
-
-const startServer = async () => {
-  try {
-    await verifyStartupSafety();
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("Startup safety check failed:", err.message);
-    process.exit(1);
-  }
-};
-
-startServer();
+module.exports = app;
+module.exports.default = app;

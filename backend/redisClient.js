@@ -3,6 +3,9 @@ require("dotenv").config();
 
 const client = createClient({
   url: process.env.REDIS_URL,
+  socket: {
+    reconnectStrategy: () => false,
+  },
 });
 
 client.on("error", (err) => console.log("Redis Error", err.message));
