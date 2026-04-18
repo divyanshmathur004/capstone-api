@@ -11,4 +11,8 @@
     "uuid": "^11.1.0",
     "bcrypt": "^6.0.0"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 689aac4 (remove incorrect vercel routing)
